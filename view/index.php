@@ -25,7 +25,7 @@ $tasks = $controller->handleRequest();
             <div class="card-body">
                 <form method="POST">
                     <label>Title</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <input type="text" name="title" class="form-control">
                     <button type="submit" name="add" class="btn btn-primary btn-sm mt-2">
                         Add Task
                     </button>

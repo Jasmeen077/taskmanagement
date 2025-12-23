@@ -5,12 +5,27 @@ class Task extends Config
 {
 
     // Add task
-    public function AddTask($title)
+    public function addTask($title)
     {
+        $title = trim($title);
+
+        if (empty($title)) {
+            echo "<script>alert('Title is required!');</script>";
+            return false;
+        }
+
         $title = $this->conn->real_escape_string($title);
         $sql = "INSERT INTO task (title, status) VALUES ('$title','pending')";
-        $this->conn->query($sql);
+
+        if ($this->conn->query($sql)) {
+            return true;
+        } else {
+
+            echo $this->conn->error;
+            return false;
+        }
     }
+
 
     // Get all tasks
     public function getTask()
@@ -21,7 +36,7 @@ class Task extends Config
     }
 
     // Update task status (toggle)
-    public function UpdateTask($id)
+    public function updateTask($id)
     {
         $id = (int)$id;
         $sql = "UPDATE task 
@@ -31,7 +46,7 @@ class Task extends Config
     }
 
     // Delete task
-    public function DeleteTask($id)
+    public function deleteTask($id)
     {
         $id = (int)$id;
         $sql = "DELETE FROM task WHERE id=$id";

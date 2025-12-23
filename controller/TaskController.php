@@ -14,21 +14,21 @@ class TaskController
     {
         // Add task
         if (isset($_POST['add'])) {
-            $this->task->AddTask($_POST['title']);
+            $this->task->addTask($_POST['title']);
             header("Location: index.php");
             exit;
         }
 
         // Delete task
         if (isset($_GET['delete']) && isset($_GET['id'])) {
-            $this->task->DeleteTask($_GET['id']);
+            $this->task->deleteTask($_GET['id']);
             header("Location: index.php");
             exit;
         }
 
         // Update status
         if (isset($_GET['update']) && isset($_GET['id'])) {
-            $this->task->UpdateTask($_GET['id']);
+            $this->task->updateTask($_GET['id']);
             header("Location: index.php");
             exit;
         }
