@@ -36,7 +36,7 @@ $tasks = $controller->handleRequest();
                         <tr>
                             <th>Title</th>
                             <th>Status</th>
-                            <th width="180">Action</th>
+                            <th width="200">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,9 +49,13 @@ $tasks = $controller->handleRequest();
                                     <?php echo ucfirst($value['status']); ?>
                                 </td>
                                 <td>
-                                    <a href="?update=1&id=<?php echo $value['id']; ?>"
+                                    <a href="?done=1&id=<?php echo $value['id']; ?>"
+                                        class="btn btn-primary btn-sm">
+                                       Done
+                                    </a>
+                                     <a href="update.php?get=1&id=<?php echo $value['id']; ?>"
                                         class="btn btn-success btn-sm">
-                                        Update
+                                       Update
                                     </a>
                                     <a href="?delete=1&id=<?php echo $value['id']; ?>"
                                         onclick="return confirm('Delete Task?')"

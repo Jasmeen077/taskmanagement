@@ -35,8 +35,8 @@ class Task extends Config
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Update task status (toggle)
-    public function updateTask($id)
+    // task status (toggle)
+    public function doneTask($id)
     {
         $id = (int)$id;
         $sql = "UPDATE task 
@@ -51,5 +51,38 @@ class Task extends Config
         $id = (int)$id;
         $sql = "DELETE FROM task WHERE id=$id";
         $this->conn->query($sql);
+    }
+
+
+    //get task by id
+    public function getTaskById($id)
+    {
+        $id = (int) $id;
+        $sql = "SELECT * FROM task WHERE id=$id";
+        $result = $this->conn->query($sql);
+
+        return $result->fetch_assoc() ?: null;
+    }
+
+    //update task
+    public function updateTask($id, $title, $status)
+    {
+        $id = (int)$id;
+        if ($id <= 0) {
+            return false;
+        }
+
+        $title  = $this->conn->real_escape_string(trim($title));
+        $status = $this->conn->real_escape_string(trim($status));
+
+        $sql = "UPDATE task 
+            SET title='$title', status='$status' 
+            WHERE id=$id";
+
+        if ($this->conn->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
