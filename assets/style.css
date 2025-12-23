@@ -1,0 +1,13 @@
+.container {
+    width: 600px;
+    margin-top: 30px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
