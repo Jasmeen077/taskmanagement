@@ -85,4 +85,66 @@ class Task extends Config
             return false;
         }
     }
+
+    //image upload
+    public function uploadImage($file)
+    {
+        $imageName = $file['name'];
+        $tmpName   = $file['tmp_name'];
+        $path      = "../uploads/" . $imageName;
+
+        if (move_uploaded_file($tmpName, $path)) {
+
+            $sql = "INSERT INTO image_upload(image_url) VALUES ('$imageName')";
+
+            if ($this->conn->query($sql)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    //get image
+    public function getImage()
+    {
+        $sql = "SELECT id, image_url FROM image_upload";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //delete image
+    public function deleteImage($id)
+    {
+        $id = (int)$id;
+
+        $sql = "SELECT image_url FROM image_upload WHERE id = $id";
+        $result = $this->conn->query($sql);
+
+        if ($result && $row = $result->fetch_assoc()) {
+
+            $imagePath = "../uploads/" . $row['image_url'];
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            $delete = "DELETE FROM image_upload WHERE id = $id";
+            $this->conn->query($delete);
+        }
+    }
+
+    //update image
+    public function updateImage($id){
+        $id = (int)$id;
+
+        if($id <=0)
+        {
+            return false;
+        }
+
+
+        
+    }
 }

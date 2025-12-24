@@ -49,7 +49,28 @@ class TaskController
             exit;
         }
 
-        // Get all tasks
-        return $this->task->getTask();
+        if (isset($_POST['uploadimage'])) {
+
+            $result = $this->task->uploadImage($_FILES['image_url']);
+
+            if ($result) {
+                echo "<script>alert('Image inserted successfully');window.location.href='imageupload.php';</script>";
+            } else {
+                echo "<script>alert('Image upload failed');</script>";
+            }
+        }
+
+        //delete image
+        if (isset($_GET['deleteimage']) && isset($_GET['id'])) {
+            $this->task->deleteImage($_GET['id']);
+            header("Location: imageupload.php");
+            exit;
+        }
+
+
+        return [
+            'tasks'  => $this->task->getTask(),
+            'images' => $this->task->getImage()
+        ];
     }
 }

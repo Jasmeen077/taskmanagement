@@ -3,6 +3,7 @@ require_once "../controller/TaskController.php";
 
 $controller = new TaskController();
 $tasks = $controller->handleRequest();
+$task  = $tasks['tasks'];
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +41,7 @@ $tasks = $controller->handleRequest();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($tasks as $value) { ?>
+                        <?php foreach ($task as $value) { ?>
                             <tr>
                                 <td class="<?php echo ($value['status'] == 'completed') ? 'completed' : ''; ?>">
                                     <?php echo htmlspecialchars($value['title']); ?>
